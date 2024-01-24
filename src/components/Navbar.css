@@ -1,0 +1,38 @@
+.navbar-list a{
+  text-decoration: none;
+  color: inherit;
+}
+.navbar-list{
+  font-family: "Times New Roman", Times, serif;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+.navbar-list li{
+  float: left;
+  display: inline;
+  color: white;
+  margin: 16px 0px;
+}
+
+.navbar-list li.profile{
+  float: right;
+  margin-right: 10px;
+}
+
+.navbar-list li:hover{
+  background-color: rgb(54, 181, 138);
+}
+
+.navbar-list a{
+  padding: 16px;
+}
+.navbar-list a:hover{
+  background-color: rgb(54, 181, 138);
+}
+.navbar-list .active{
+  
+  background-color: rgb(54, 181, 138);
+}
+

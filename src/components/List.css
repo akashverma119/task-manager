@@ -1,0 +1,44 @@
+.container{
+  padding: 16px;
+}
+
+
+.container table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.container thead{
+  border-radius: 2px;
+  background-color: rgb(149, 230, 26);
+}
+
+.container th, td {
+  text-align: center;
+}
+  
+.container tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.container td:hover{
+  opacity: 50%;
+}
+
+.container a{
+  text-decoration: none;
+  color: inherit;
+}
+
+.delete-button button{
+  border: none;
+  color: white;
+  margin: 5px;
+  padding: 10px;
+  background-color: rgb(244, 37, 37);
+  border-radius: 20px;
+}
+
+.delete-button button:hover{
+  opacity: 50%;
+}
