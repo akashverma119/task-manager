@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
-import Create from './Create';
-import Navbar from './Navbar';
-import './List.css'
-import { fakedata } from '../data/data';
+import './List.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTask, removeTask, updateTask } from '../redux';
+import { removeTask, updateTask, fetchTask } from '../redux';
 
 const List = () => {
 	const tasks = useSelector(state=>state.tasks);
-	console.log(tasks)
+	
 	const dispatch = useDispatch();
-	function handleDelete(index){
+	useEffect(()=>
+	{
+		dispatch(fetchTask())
+	});
+	
+
+	function handleDelete(index)
+	{
 		dispatch(removeTask(index));
 	}
 
@@ -85,6 +89,7 @@ const List = () => {
 	return (
 		<>
 			<div className="container">
+				{/* <button onClick={()=>handleClick()}>Button</button> */}
 				<h1>Your Daily Tasks</h1>
 				{tableRender()}
 			</div>

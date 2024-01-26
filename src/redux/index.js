@@ -1,1 +1,1 @@
-export { addTask, removeTask, updateTask } from "./task/taskActions"
+export { addTask, removeTask, updateTask, fetchTask, receiveTaskFailure, receiveTaskSuccess } from "./task/taskActions"

@@ -1,4 +1,4 @@
-import { ADD_TASK, REMOVE_TASK, UPDATE_TASK } from "./taskTypes";
+import { ADD_TASK, REMOVE_TASK, UPDATE_TASK, FETCH_TASK, RECEIVE_TASK_FAILURE, RECEIVE_TASK_SUCCESS } from "./taskTypes";
 
 const addTask = (data) =>
 {
@@ -26,5 +26,24 @@ const updateTask = (id,task) =>
     }
   } 
 };
+
+export const fetchTask = () => ({
+  type: FETCH_TASK,
+});
+
+export const receiveTaskSuccess = (data) => ({
+  type: RECEIVE_TASK_SUCCESS,
+  payload :{
+    data
+  }
+});
+
+export const receiveTaskFailure = (err) => ({
+  type: RECEIVE_TASK_FAILURE,
+  payload :{
+    err
+  }
+});
+
 
 export {addTask, removeTask, updateTask};

@@ -1,3 +1,6 @@
 export const ADD_TASK = 'ADD_TASK';
 export const REMOVE_TASK = 'REMOVE_TASK';
 export const UPDATE_TASK = 'UPDATE_TASK';
+export const FETCH_TASK = 'FETCH_TASK';
+export const RECEIVE_TASK_SUCCESS = 'RECEIVE_TASK_SUCCESS';
+export const RECEIVE_TASK_FAILURE = 'RECEIVE_TASK_FAILURE';
