@@ -4,6 +4,7 @@ import './Create.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { addTask, removeTask, updateTask } from '../redux';
 import { useNavigate } from 'react-router-dom';
+import { nanoid } from 'nanoid';
 
 const Create = () => {
 	const [task,setTask] = useState({status:0});
@@ -12,10 +13,12 @@ const Create = () => {
 	const handleSubmit= (event) =>
 	{
 		event.preventDefault();
+		const id = String(nanoid());
+		setTask(task.id = id)
 		dispatch(addTask(task));
 		navigate('../');
 	}
-	console.log(useSelector(state=>state.tasks))
+	// console.log(useSelector(state=>state.tasks))
 	const formRender=()=>{
 		return(
 			<form onSubmit={(event)=>handleSubmit(event)}>

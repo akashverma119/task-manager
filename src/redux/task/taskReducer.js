@@ -23,11 +23,11 @@ const taskReducer=(state = initailState, action)=>{
 
     case UPDATE_TASK:
       const prevTask = state.tasks;
-      prevTask[action.payload.id]=action.payload.task;
+      prevTask.map((obj)=> obj.id===action.payload.id?action.payload.task:obj);
       return{...state, tasks:prevTask }
 
     case REMOVE_TASK:
-      return{...state, tasks:state.tasks.filter((value,index)=>index!=action.payload) }
+      return{...state, tasks:state.tasks.filter((obj)=>obj.id!=action.payload) }
 
     default:return state
   }

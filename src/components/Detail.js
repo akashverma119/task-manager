@@ -10,7 +10,7 @@ const Detail = () => {
 	const index= useParams()?.id;
 	const dispatch = useDispatch();
 	const tasks = useSelector(state=>state.tasks);
-	const [task,setTask] = useState(tasks[index]);
+	const [task,setTask] = useState(tasks.find((obj)=>obj.id==index));
 	const navigate = useNavigate();
 	const handleEdit= (event) =>
 	{
