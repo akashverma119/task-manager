@@ -1,50 +1,45 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from "react-router-dom";
 import './List.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { removeTask, updateTask, fetchTask } from '../redux';
+import { taskSelector } from '../selectors/selectors';
 
-const List = () => {
-	const tasks = useSelector(state=>state.tasks);
-	const dispatch = useDispatch();
-	
-
-	const handleClick=()=>{
-		dispatch(fetchTask())
-	}
+const List = (props) => {
+	const tasks = props.tasks
 
 	const handleFilter=()=>{
 		tasks.filter((obj) => obj.status===1)
 	}
 	
-	// useEffect(()=>{
-	// 	dispatch(fetchTask());
-	// },[])
+	useEffect(()=>{
+		props.fetchTask();
+	},[tasks])
 
 	function handleDelete(index)
 	{
-		dispatch(removeTask(index));
+		props.removeTask(index)
 	}
 
 	const handlePriority = (event, index) =>
 	{
 		const newTask = tasks.find((obj) => obj.id===index);
 		newTask.priority = event.target.value;
-		dispatch(updateTask(index,newTask));
+		props.updateTask(index,newTask)
 	}
 
 	const handleStatus = (event, index) =>
 	{
 		const newTask = tasks.find((obj) => obj.id===index);
 		newTask.status = event.target.value==='Completed'?1:0;
-		dispatch(updateTask(index,newTask))
+		props.updateTask(index,newTask)
 	}
 
 	const handleDeadline = (event, index) =>
 	{
 		const newTask = tasks.find((obj) => obj.id===index);
 		newTask.deadline=event.target.value;
-		dispatch(updateTask(index,newTask));
+		props.updateTask(index,newTask)
 	}
 
 	const tableRows = tasks.map((element,index) => {
@@ -66,7 +61,7 @@ const List = () => {
 					<option>Pending</option>
 				</select>
 			</td>
-			<td className='delete-button'><button onClick={()=>handleDelete(tasks[index].id)}>Delete</button></td>
+			<td className='delete-button'><button onClick={()=>handleDelete(tasks[index].id)}>X</button></td>
 
 			
 		</tr>
@@ -96,8 +91,6 @@ const List = () => {
 	return (
 		<>
 			<div className="container">
-				<button onClick={()=>handleClick()}>Get all the data</button>
-				<button onClick={()=>handleFilter()}>Filter</button>
 				<h1>Your Daily Tasks</h1>
 				{tableRender()}
 			</div>
@@ -105,4 +98,22 @@ const List = () => {
 	)
 }
 
-export default List
+const mapStateToProp = (state)=> {
+	return {
+		tasks: taskSelector(state)
+	}
+}
+
+
+const mapDispatchToProp = (dispatch)=>{
+	return {
+		fetchTask: ()=> dispatch(fetchTask()),
+		updateTask: (id,task)=> dispatch(updateTask(id,task)),
+		removeTask: (id)=> dispatch(removeTask(id)),
+	}
+}
+
+export default connect(
+	mapStateToProp,
+	mapDispatchToProp,
+)(List)

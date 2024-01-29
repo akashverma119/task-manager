@@ -1,22 +1,21 @@
 
 import { React,useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './Detail.css'
-import Navbar from './Navbar';
-import { useDispatch, useSelector } from 'react-redux';
-import { addTask, updateTask } from '../redux';
+import { connect } from 'react-redux';
+import { updateTask } from '../redux';
+import { taskSelector } from '../selectors/selectors';
 
-const Detail = () => {
+const Detail = (props) => {
 	const index= useParams()?.id;
-	const dispatch = useDispatch();
-	const tasks = useSelector(state=>state.tasks);
+	const tasks = props.tasks;
 	const [task,setTask] = useState(tasks.find((obj)=>obj.id==index));
 	const navigate = useNavigate();
 	const handleEdit= (event) =>
 	{
 		event.preventDefault();
 		console.log("new",task)
-		dispatch(updateTask(index, task));
+		props.updateTask(index, task);
 		console.log("updated", tasks[index]);
 		navigate('../')
 	}
@@ -51,4 +50,20 @@ const Detail = () => {
 	)
 }
 
-export default Detail
+const mapStateToProp = (state)=> {
+	return {
+		tasks: taskSelector(state)
+	}
+}
+
+
+const mapDispatchToProp = (dispatch)=>{
+	return {
+		updateTask: (id,task)=> dispatch(updateTask(id,task)),
+	}
+}
+
+export default connect(
+	mapStateToProp,
+	mapDispatchToProp,
+)(Detail)

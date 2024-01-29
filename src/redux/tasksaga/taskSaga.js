@@ -6,7 +6,7 @@ function* onFetchTask()
 {
   try 
   {
-    const response = yield call(axios.get, ['http://localhost:3500/tasks']);
+    const response = yield call(axios.get, ['http://localhost:3600/tasks']);
     yield put(receiveTaskSuccess(response.data));
   } 
   catch(e) 

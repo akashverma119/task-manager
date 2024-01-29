@@ -1,24 +1,22 @@
 import React, { useState } from 'react'
-import Navbar from './Navbar'
 import './Create.css'
-import { useDispatch, useSelector } from 'react-redux';
-import { addTask, removeTask, updateTask } from '../redux';
+import { connect } from 'react-redux';
+import { addTask } from '../redux';
 import { useNavigate } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 
-const Create = () => {
+const Create = (props) => {
 	const [task,setTask] = useState({status:0});
-	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const handleSubmit= (event) =>
 	{
 		event.preventDefault();
 		const id = String(nanoid());
 		setTask(task.id = id)
-		dispatch(addTask(task));
+		props.addTask(task);
 		navigate('../');
 	}
-	// console.log(useSelector(state=>state.tasks))
+
 	const formRender=()=>{
 		return(
 			<form onSubmit={(event)=>handleSubmit(event)}>
@@ -44,4 +42,12 @@ const Create = () => {
 	)
 }
 
-export default Create
+const mapDispatchToProp = (dispatch)=>{
+	return {
+		addTask: (data)=> dispatch(addTask(data)),
+	}
+}
+
+export default connect(
+	mapDispatchToProp,
+)(Create)
