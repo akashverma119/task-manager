@@ -43,3 +43,12 @@
 .delete-button button:hover{
   opacity: 50%;
 }
+
+#search-box{
+  margin: auto;
+  display: block;
+  padding: 0px 20px;
+  width: 50%;
+  height: 30px;
+  border-radius: 20px;
+}

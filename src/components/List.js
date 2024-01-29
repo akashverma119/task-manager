@@ -2,15 +2,17 @@ import React, { useEffect } from 'react';
 import { Link } from "react-router-dom";
 import './List.css';
 import { connect } from 'react-redux';
-import { removeTask, updateTask, fetchTask } from '../redux';
-import { taskSelector } from '../selectors/selectors';
+import { removeTask, updateTask, fetchTask, changeSearch } from '../redux';
+import { fileteredTaskSelector, taskSelector } from '../selectors/selectors';
 
 const List = (props) => {
 	const tasks = props.tasks
 
-	const handleFilter=()=>{
-		tasks.filter((obj) => obj.status===1)
+	const handleSearch=(event)=>{
+		props.changeSearch(event.target.value)
+		console.log(props.filteredTask)
 	}
+	
 	
 	useEffect(()=>{
 		props.fetchTask();
@@ -42,28 +44,26 @@ const List = (props) => {
 		props.updateTask(index,newTask)
 	}
 
-	const tableRows = tasks.map((element,index) => {
+	const tableRows = props.filteredTask.map((element,index) => {
 		return (
-		<tr className="items" key={tasks[index].id}>
+		<tr className="items" key={props.filteredTask[index].id}>
 			
-			<td><Link to={`/detail/${tasks[index].id}`}>{element.title}</Link></td>
+			<td><Link to={`/detail/${props.filteredTask[index].id}`}>{element.title}</Link></td>
 			
 			<td>
-				<select defaultValue={element.priority} onChange={(event) => handlePriority(event, tasks[index].id)}>
+				<select defaultValue={element.priority} onChange={(event) => handlePriority(event, props.filteredTask[index].id)}>
 					<option>urgent</option>
 					<option>elective</option>
 				</select>	
 			</td>
-			<td><input type="datetime-local" defaultValue={element.deadline || ""} onChange={(event)=>handleDeadline(event, tasks[index].id)} /></td>
+			<td><input type="datetime-local" defaultValue={element.deadline || ""} onChange={(event)=>handleDeadline(event, props.filteredTask[index].id)} /></td>
 			<td>
-				<select defaultValue={element.status==1?"Completed":"Pending"} onChange={(event) => handleStatus(event, tasks[index].id)}>
+				<select defaultValue={element.status==1?"Completed":"Pending"} onChange={(event) => handleStatus(event, props.filteredTask[index].id)}>
 					<option>Completed</option>
 					<option>Pending</option>
 				</select>
 			</td>
 			<td className='delete-button'><button onClick={()=>handleDelete(tasks[index].id)}>X</button></td>
-
-			
 		</tr>
 		);      
 	});
@@ -91,6 +91,7 @@ const List = (props) => {
 	return (
 		<>
 			<div className="container">
+				<input id='search-box' type='text' placeholder='Search' onChange={(e)=>handleSearch(e)}></input>
 				<h1>Your Daily Tasks</h1>
 				{tableRender()}
 			</div>
@@ -100,7 +101,9 @@ const List = (props) => {
 
 const mapStateToProp = (state)=> {
 	return {
-		tasks: taskSelector(state)
+		tasks: taskSelector(state),
+		search: state.search,
+		filteredTask: fileteredTaskSelector(state),
 	}
 }
 
@@ -110,6 +113,7 @@ const mapDispatchToProp = (dispatch)=>{
 		fetchTask: ()=> dispatch(fetchTask()),
 		updateTask: (id,task)=> dispatch(updateTask(id,task)),
 		removeTask: (id)=> dispatch(removeTask(id)),
+		changeSearch: (val)=> dispatch(changeSearch(val)),
 	}
 }
 

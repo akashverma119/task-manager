@@ -1,9 +1,10 @@
-import { ADD_TASK,UPDATE_TASK, REMOVE_TASK, FETCH_TASK, RECEIVE_TASK_FAILURE, RECEIVE_TASK_SUCCESS , ADD_TASK_FAILURE, ADD_TASK_SUCCESS, UPDATE_TASK_FAILURE, UPDATE_TASK_SUCCESS, REMOVE_TASK_FAILURE, REMOVE_TASK_SUCCESS} from "./taskTypes";
+import { ADD_TASK,UPDATE_TASK, REMOVE_TASK, FETCH_TASK, RECEIVE_TASK_FAILURE, RECEIVE_TASK_SUCCESS , ADD_TASK_FAILURE, ADD_TASK_SUCCESS, UPDATE_TASK_FAILURE, UPDATE_TASK_SUCCESS, REMOVE_TASK_FAILURE, REMOVE_TASK_SUCCESS, CHANGE_SEARCH} from "./taskTypes";
 import { fakedata } from "../../data/data";
 const initailState = {
   tasks:[],
   error: null,
-  loading : false
+  loading : false,
+  search : '',
 }
 
 const taskReducer=(state = initailState, action)=>{
@@ -44,6 +45,9 @@ const taskReducer=(state = initailState, action)=>{
 
     case REMOVE_TASK_FAILURE:
       return { ...state, error:action.payload.err, loading: false };
+
+    case CHANGE_SEARCH:
+      return { ...state, search:action.payload.data};
 
     default:return state
   }
