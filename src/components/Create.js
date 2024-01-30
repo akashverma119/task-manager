@@ -11,8 +11,9 @@ const Create = (props) => {
 	const handleSubmit= (event) =>
 	{
 		event.preventDefault();
-		const id = String(nanoid());
+		const id = nanoid();
 		setTask(task.id = id)
+		console.log(task)
 		props.addTask(task);
 		navigate('../');
 	}
@@ -42,6 +43,9 @@ const Create = (props) => {
 	)
 }
 
+const mapStateToProp = () =>{
+	return{}
+}
 const mapDispatchToProp = (dispatch)=>{
 	return {
 		addTask: (data)=> dispatch(addTask(data)),
@@ -49,5 +53,6 @@ const mapDispatchToProp = (dispatch)=>{
 }
 
 export default connect(
+	mapStateToProp,
 	mapDispatchToProp,
 )(Create)

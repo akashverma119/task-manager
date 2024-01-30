@@ -7,7 +7,14 @@ function* onRemoveTask(data)
   try 
   {
     const response = yield call(axios.delete, [`http://localhost:3600/tasks/${data.payload.id}`]);
-    yield put(removeTaskSuccess());
+    if(response.status>=200 && response.status<300){
+      yield put(removeTaskSuccess());
+    }
+    else {
+      const error = new Error("Something went wrong")
+      error.code = response.status;
+      throw error;
+    }
   } 
   catch(e) 
   {

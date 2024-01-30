@@ -10,14 +10,18 @@ const List = (props) => {
 
 	const handleSearch=(event)=>{
 		props.changeSearch(event.target.value)
-		console.log(props.filteredTask)
+		// console.log(props.filteredTask)
 	}
-	
 	
 	useEffect(()=>{
 		props.fetchTask();
+	},[])
+
+	useEffect(()=>{
+		// console.log(tasks)
 	},[tasks])
 
+	// console.log(props.loading)
 	function handleDelete(index)
 	{
 		props.removeTask(index)
@@ -68,10 +72,23 @@ const List = (props) => {
 		);      
 	});
 
+	
+
+	const tableRowsLoading= [<tr key={"temp"}><td>Loading</td></tr>]
+	
+
+
 	const tableRender = () =>
 	{
-		return(
-			<table className='table'>
+		if(props.loading)
+		{
+			<p>Loading...</p>
+		}
+		else
+		{
+			
+			return(
+				<table className='table'>
 					<thead>
 						<tr>
 							<th>Title</th>
@@ -81,17 +98,20 @@ const List = (props) => {
 							<th></th>
 						</tr>
 					</thead>
+					
 					<tbody>
 						{tableRows}
 					</tbody>
 				</table>
-		)
+			)
+		}
+		
 	}
 
 	return (
 		<>
 			<div className="container">
-				<input id='search-box' type='text' placeholder='Search' onChange={(e)=>handleSearch(e)}></input>
+				<input id='search-box' type='text' placeholder='Search Task' onChange={(e)=>handleSearch(e)}></input>
 				<h1>Your Daily Tasks</h1>
 				{tableRender()}
 			</div>
@@ -101,6 +121,7 @@ const List = (props) => {
 
 const mapStateToProp = (state)=> {
 	return {
+		loading: state.loading,
 		tasks: taskSelector(state),
 		search: state.search,
 		filteredTask: fileteredTaskSelector(state),

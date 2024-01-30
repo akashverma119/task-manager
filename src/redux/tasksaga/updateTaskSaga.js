@@ -7,7 +7,14 @@ function* onUpdateTask(data)
   try 
   {
     const response = yield call(axios.put, [`http://localhost:3600/tasks/${data.payload.id}`],data.payload.task);
-    yield put(updateTaskSuccess());
+    if(response.status>=200 && response.status<300){
+      yield put(updateTaskSuccess());
+    }
+    else {
+      const error = new Error("Something went wrong")
+      error.code = response.status;
+      throw error;
+    }
   } 
   catch(e) 
   {

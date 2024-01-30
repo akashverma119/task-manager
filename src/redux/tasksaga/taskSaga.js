@@ -7,7 +7,14 @@ function* onFetchTask()
   try 
   {
     const response = yield call(axios.get, ['http://localhost:3600/tasks']);
-    yield put(receiveTaskSuccess(response.data));
+    if(response.status>=200 && response.status<300){
+      yield put(receiveTaskSuccess(response.data));
+    }
+    else {
+      const error = new Error("Something went wrong")
+      error.code = response.status;
+      throw error;
+    }
   } 
   catch(e) 
   {

@@ -58,6 +58,8 @@ const mapStateToProp = (state)=> {
 
 
 const mapDispatchToProp = (dispatch)=>{
+	// const id = useParams()?.id;
+	// console.log(id);
 	return {
 		updateTask: (id,task)=> dispatch(updateTask(id,task)),
 	}

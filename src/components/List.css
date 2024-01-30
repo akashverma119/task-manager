@@ -48,7 +48,12 @@
   margin: auto;
   display: block;
   padding: 0px 20px;
-  width: 50%;
-  height: 30px;
+  width: 30%;
+  height: 35px;
   border-radius: 20px;
+}
+
+#search-box:hover{
+  opacity: 80%;
+  background-color: #f2f2f2;
 }
