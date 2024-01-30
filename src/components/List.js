@@ -2,26 +2,26 @@ import React, { useEffect } from 'react';
 import { Link } from "react-router-dom";
 import './List.css';
 import { connect } from 'react-redux';
-import { removeTask, updateTask, fetchTask, changeSearch } from '../redux';
+import { removeTask, updateTask, fetchTask, changeSearch, changePriority } from '../redux';
 import { fileteredTaskSelector, taskSelector } from '../selectors/selectors';
+import { useToggle } from './useToggle';
 
 const List = (props) => {
 	const tasks = props.tasks
-
 	const handleSearch=(event)=>{
 		props.changeSearch(event.target.value)
-		// console.log(props.filteredTask)
 	}
-	
+
+	const [toggle,setToggle] = useToggle(false);
+
 	useEffect(()=>{
 		props.fetchTask();
 	},[])
 
 	useEffect(()=>{
-		// console.log(tasks)
 	},[tasks])
 
-	// console.log(props.loading)
+	console.log(props.priority)
 	function handleDelete(index)
 	{
 		props.removeTask(index)
@@ -51,7 +51,6 @@ const List = (props) => {
 	const tableRows = props.filteredTask.map((element,index) => {
 		return (
 		<tr className="items" key={props.filteredTask[index].id}>
-			
 			<td><Link to={`/detail/${props.filteredTask[index].id}`}>{element.title}</Link></td>
 			
 			<td>
@@ -107,24 +106,35 @@ const List = (props) => {
 		}
 		
 	}
-
+	
 	return (
 		<>
 			<div className="container">
-				<input id='search-box' type='text' placeholder='Search Task' onChange={(e)=>handleSearch(e)}></input>
+				
+				<br/>
+				<input id='search-box' type='text' value={props.search} placeholder='Search Task' onChange={(e)=>handleSearch(e)}></input>
+				<select id='priority-box' defaultValue="none" onChange={(event)=>props.changePriority(event.target.value)}>
+					<option>none</option>
+					<option>urgent</option>
+					<option>elective</option>
+				</select>	
 				<h1>Your Daily Tasks</h1>
 				{tableRender()}
+				<button onClick={setToggle}>{toggle?1:0}</button>
 			</div>
+
+			
 		</>
 	)
 }
 
 const mapStateToProp = (state)=> {
 	return {
-		loading: state.loading,
+		loading: state.get("loading"),
 		tasks: taskSelector(state),
-		search: state.search,
+		search: state.get("search"),
 		filteredTask: fileteredTaskSelector(state),
+		priority: state.get("priority"),
 	}
 }
 
@@ -135,6 +145,7 @@ const mapDispatchToProp = (dispatch)=>{
 		updateTask: (id,task)=> dispatch(updateTask(id,task)),
 		removeTask: (id)=> dispatch(removeTask(id)),
 		changeSearch: (val)=> dispatch(changeSearch(val)),
+		changePriority: (val)=> dispatch(changePriority(val)),
 	}
 }
 

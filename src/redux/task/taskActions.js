@@ -1,4 +1,4 @@
-import { ADD_TASK, REMOVE_TASK, UPDATE_TASK, FETCH_TASK, RECEIVE_TASK_FAILURE, RECEIVE_TASK_SUCCESS, ADD_TASK_FAILURE, ADD_TASK_SUCCESS, UPDATE_TASK_SUCCESS, UPDATE_TASK_FAILURE, REMOVE_TASK_FAILURE, REMOVE_TASK_SUCCESS, CHANGE_SEARCH } from "./taskTypes";
+import { ADD_TASK, REMOVE_TASK, UPDATE_TASK, FETCH_TASK, RECEIVE_TASK_FAILURE, RECEIVE_TASK_SUCCESS, ADD_TASK_FAILURE, ADD_TASK_SUCCESS, UPDATE_TASK_SUCCESS, UPDATE_TASK_FAILURE, REMOVE_TASK_FAILURE, REMOVE_TASK_SUCCESS, CHANGE_SEARCH, CHANGE_PRIORITY } from "./taskTypes";
 
 export const addTask = (task) =>
 {
@@ -95,13 +95,20 @@ export const removeTaskFailure = (err) => ({
   }
 });
 
-export const changeSearch = (data) => (
-  {
+export const changeSearch = (data) => ({
     type: CHANGE_SEARCH,
     payload:{
       data
     }
   }
-)
+);
+
+export const changePriority = (data) => ({
+    type :CHANGE_PRIORITY,
+    payload:{
+      data
+    }
+  }
+);
 
 

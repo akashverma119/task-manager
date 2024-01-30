@@ -46,7 +46,7 @@
 
 #search-box{
   margin: auto;
-  display: block;
+  display: inline;
   padding: 0px 20px;
   width: 30%;
   height: 35px;
@@ -54,6 +54,20 @@
 }
 
 #search-box:hover{
+  opacity: 80%;
+  background-color: #f2f2f2;
+}
+
+#priority-box{
+  display: inline;
+  width: 20%;
+  padding: 0px 20px;
+  height: 35px;
+  border-radius: 20px;
+  margin: 20px;
+}
+
+#priority-box:hover{
   opacity: 80%;
   background-color: #f2f2f2;
 }
