@@ -13,7 +13,7 @@ const Create = (props) => {
 		event.preventDefault();
 		const id = nanoid();
 		setTask(task.id = id)
-		console.log(task)
+		// console.log(task)
 		props.addTask(task);
 		navigate('../');
 	}

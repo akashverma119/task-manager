@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import './List.css';
 import { connect } from 'react-redux';
 import { removeTask, updateTask, fetchTask, changeSearch, changePriority } from '../redux';
-import { fileteredTaskSelector, taskSelector } from '../selectors/selectors';
+import { fileteredTaskSelector, loadSelector, prioritySelector, searchSelector, taskSelector } from '../selectors/selectors';
 
 const List = (props) => {
 	const tasks = props.tasks
@@ -17,7 +17,7 @@ const List = (props) => {
 	},[])
 
 
-	console.log(props.priority)
+	// console.log(props.priority)
 	function handleDelete(index)
 	{
 		props.removeTask(index)
@@ -125,11 +125,11 @@ const List = (props) => {
 
 const mapStateToProp = (state)=> {
 	return {
-		loading: state.get("loading"),
+		loading: loadSelector(state),
 		tasks: taskSelector(state),
-		search: state.get("search"),
+		search: searchSelector(state),
 		filteredTask: fileteredTaskSelector(state),
-		priority: state.get("priority"),
+		priority: prioritySelector(state),
 	}
 }
 

@@ -13,48 +13,48 @@ const taskReducer=(state = initailState, action)=>{
   switch(action.type){
 
     case FETCH_TASK:
-      return state.set("error", null).set("loading", true);
+      return fromJS(state.set("error", null).set("loading", true));
 
     case RECEIVE_TASK_SUCCESS:
-      return state.set("tasks", action.payload.data).set("error", null).set("loading",false);
+      return fromJS(state.set("tasks", action.payload.data).set("error", null).set("loading",false));
 
     case RECEIVE_TASK_FAILURE:
-      return state.set("tasks",[]).set("error",action.payload.err).set("loading",false);
+      return fromJS(state.set("tasks",[]).set("error",action.payload.err).set("loading",false));
 
     case ADD_TASK:
-      return state.set("error", null).set("loading", true);
+      return fromJS(state.set("error", null).set("loading", true));
 
     case ADD_TASK_SUCCESS:
-      return state.set("error", null).set("loading",false);
+      return fromJS(state.set("error", null).set("loading",false));
 
     case ADD_TASK_FAILURE:
-      return state.set("error",action.payload.err).set("loading",false);
+      return fromJS(state.set("error",action.payload.err).set("loading",false));
 
     case UPDATE_TASK:
-      return state.set("error", null).set("loading", true);
+      return fromJS(state.set("error", null).set("loading", true));
 
     case UPDATE_TASK_SUCCESS:
-      return state.set("error", null).set("loading",false);
+      return fromJS(state.set("error", null).set("loading",false));
 
     case UPDATE_TASK_FAILURE:
-      return state.set("error",action.payload.err).set("loading",false);
+      return fromJS(state.set("error",action.payload.err).set("loading",false));
 
     case REMOVE_TASK:
-      return state.set("error", null).set("loading", true);
+      return fromJS(state.set("error", null).set("loading", true));
 
     case REMOVE_TASK_SUCCESS:
-      return state.set("error", null).set("loading",false);
+      return fromJS(state.set("error", null).set("loading",false));
 
     case REMOVE_TASK_FAILURE:
-      return state.set("error",action.payload.err).set("loading",false);
+      return fromJS(state.set("error",action.payload.err).set("loading",false));
 
     case CHANGE_SEARCH:
-      return state.set("search",action.payload.data)
+      return fromJS(state.set("search",action.payload.data));
     
     case CHANGE_PRIORITY:
-      return state.set("priority",action.payload.data)
+      return fromJS(state.set("priority",action.payload.data));
 
-    default:return state
+    default:return fromJS(state);
   }
 }
 

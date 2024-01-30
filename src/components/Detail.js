@@ -14,9 +14,7 @@ const Detail = (props) => {
 	const handleEdit= (event) =>
 	{
 		event.preventDefault();
-		console.log("new",task)
 		props.updateTask(index, task);
-		console.log("updated", tasks[index]);
 		navigate('../')
 	}
 
@@ -58,8 +56,6 @@ const mapStateToProp = (state)=> {
 
 
 const mapDispatchToProp = (dispatch)=>{
-	// const id = useParams()?.id;
-	// console.log(id);
 	return {
 		updateTask: (id,task)=> dispatch(updateTask(id,task)),
 	}
