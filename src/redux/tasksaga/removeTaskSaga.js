@@ -23,5 +23,5 @@ function* onRemoveTask(data)
 }
 
 export default function* removeTaskSaga() {
-  yield takeLatest(REMOVE_TASK, (data)=>onRemoveTask(data));
+  yield takeLatest(REMOVE_TASK, onRemoveTask);
 }

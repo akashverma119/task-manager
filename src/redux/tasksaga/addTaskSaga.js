@@ -23,5 +23,5 @@ function* onAddTask(data)
 }
 
 export default function* addTaskSaga() {
-  yield takeLatest(ADD_TASK, (data)=>onAddTask(data));
+  yield takeLatest(ADD_TASK, onAddTask);
 }

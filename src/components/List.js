@@ -4,7 +4,6 @@ import './List.css';
 import { connect } from 'react-redux';
 import { removeTask, updateTask, fetchTask, changeSearch, changePriority } from '../redux';
 import { fileteredTaskSelector, taskSelector } from '../selectors/selectors';
-import { useToggle } from './useToggle';
 
 const List = (props) => {
 	const tasks = props.tasks
@@ -12,14 +11,11 @@ const List = (props) => {
 		props.changeSearch(event.target.value)
 	}
 
-	const [toggle,setToggle] = useToggle(false);
 
 	useEffect(()=>{
 		props.fetchTask();
 	},[])
 
-	useEffect(()=>{
-	},[tasks])
 
 	console.log(props.priority)
 	function handleDelete(index)
@@ -120,7 +116,6 @@ const List = (props) => {
 				</select>	
 				<h1>Your Daily Tasks</h1>
 				{tableRender()}
-				<button onClick={setToggle}>{toggle?1:0}</button>
 			</div>
 
 			

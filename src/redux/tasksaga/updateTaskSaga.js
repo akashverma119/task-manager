@@ -23,5 +23,5 @@ function* onUpdateTask(data)
 }
 
 export default function* updateTaskSaga() {
-  yield takeLatest(UPDATE_TASK, (data)=>onUpdateTask(data));
+  yield takeLatest(UPDATE_TASK, onUpdateTask);
 }
