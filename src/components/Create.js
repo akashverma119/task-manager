@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { addTask } from '../redux';
 import { useNavigate } from 'react-router-dom';
 import { nanoid } from 'nanoid';
+import Input from './atoms/Input';
+import Select from './atoms/Select';
 
 const Create = (props) => {
 	const [task,setTask] = useState({status:0});
@@ -13,24 +15,39 @@ const Create = (props) => {
 		event.preventDefault();
 		const id = nanoid();
 		setTask(task.id = id)
-		// console.log(task)
 		props.addTask(task);
 		navigate('../');
 	}
 
+	const handleTitle = (event) =>{
+		setTask({...task , title:event.target.value})
+	}
+	const handleDetail = (event) =>{
+		setTask({...task , detail:event.target.value})
+	}
+	const handleDeadline = (event) =>{
+		setTask({...task , deadline:event.target.value})
+	}
+	const handlePriority = (event) =>{
+		setTask({...task , priority:event.target.value})
+	}
+	const priorityOptions = ["urgent", "elective"];
 	const formRender=()=>{
 		return(
 			<form onSubmit={(event)=>handleSubmit(event)}>
-				<label>Title:<input placeholder='Add a Title' type="text" value={task.title || ""} onChange={(e)=>setTask({...task , title:e.target.value})} /></label>
-				<label>Detail:<input placeholder='Add Details' type="text" value={task.detail || ""} onChange={(e)=>setTask({...task , detail:e.target.value})} /></label>
-				<label>Priority:
-				<select value={task.priority || ""} onChange={(e)=>(setTask({...task, priority:e.target.value}))}>
-					<option>urgent</option>
-					<option>elective</option>
-				</select>
+				<label>Title:
+					<Input placeholder='Add a Title' type="text" value={task.title || ""} onChange={handleTitle}></Input>
 				</label>
-				<label>Deadline:<input type="datetime-local" value={task.deadline || ""} onChange={(e)=>setTask({...task , deadline:e.target.value})} /></label>
-				<input type='submit'></input>
+				<label>Detail:
+					<Input placeholder='Add Details' type="text" value={task.detail || ""} onChange={handleDetail} />
+				</label>
+				<label>Priority:
+					<Select defaultValue={task.priority || ""} options={priorityOptions} onChange={handlePriority}/>
+				</label>
+				<label>Deadline:
+					<Input  type="datetime-local" value={task.deadline || ""} onChange={handleDeadline} />
+				</label>
+				<Input type='submit'></Input>
 			</form>
 		);
 	}

@@ -5,7 +5,9 @@ import './Detail.css'
 import { connect } from 'react-redux';
 import { updateTask } from '../redux';
 import { taskSelector } from '../selectors/selectors';
-
+import Input from './atoms/Input';
+import Select from './atoms/Select';
+import Button from './atoms/Button';
 const Detail = (props) => {
 	const index= useParams()?.id;
 	const tasks = props.tasks;
@@ -17,25 +19,42 @@ const Detail = (props) => {
 		props.updateTask(index, task);
 		navigate('../')
 	}
+	const handleTitle = (event) =>{
+		setTask({...task , title:event.target.value})
+	}
+	const handleDetail = (event) =>{
+		setTask({...task , detail:event.target.value})
+	}
+	const handleDeadline = (event) =>{
+		setTask({...task , deadline:event.target.value})
+	}
+	const handlePriority = (event) =>{
+		setTask({...task , priority:event.target.value})
+	}
+	const handleStatus = (event) =>{
+		setTask({...task, status:(event.target.value==='Completed'?1:0)})
+	}
+	const priorityOptions = ["urgent", "elective"];
+	const statusOptions = ["Pending", "Completed"];
 
 	const formRender=()=>{
 		return(<form >
 			<label>Status:
-				<select defaultValue={task.status==0?'Pending':'Completed'} onChange={(e)=>(setTask({...task, status:(e.target.value==='Completed'?1:0)}))}>
-					<option>Completed</option>
-					<option>Pending</option>
-				</select>
+				<Select defaultValue={task.status==1?"Completed":"Pending"} options={statusOptions} onChange={handleStatus}/>
 			</label>
-			<label>Title:<input type="text" value={task.title || ""} onChange={(e)=>setTask({...task , title:e.target.value})} /></label>
-			<label>Detail:<input type="text" value={task.detail || ""} onChange={(e)=>setTask({...task , detail:e.target.value})} /></label>
+			<label>Title:
+				<Input type="text" value={task.title || ""} onChange={handleTitle}></Input>
+			</label>
+			<label>Detail:
+				<Input type="text" value={task.detail || ""} onChange={handleDetail} />
+			</label>
 			<label>Priority:
-			<select defaultValue={task.priority} onChange={(e)=>(setTask({...task, priority:e.target.value}))}>
-				<option>urgent</option>
-				<option>elective</option>
-			</select>
+				<Select defaultValue={task.priority} options={priorityOptions} onChange={handlePriority}/>
 			</label>
-			<label>Deadline:<input type="datetime-local" value={task.deadline || ""} onChange={(e)=>setTask({...task , deadline:e.target.value})} /></label>
-			<button onClick={(e)=>handleEdit(e)}>EDIT</button>
+			<label>Deadline:
+				<Input type="datetime-local" value={task.deadline || ""} onChange={handleDeadline}></Input>
+			</label>
+			<Button onClick={(e)=>handleEdit(e)} value={"EDIT"}></Button>
 		</form>);
 	}
 	

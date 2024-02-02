@@ -4,6 +4,9 @@ import './List.css';
 import { connect } from 'react-redux';
 import { removeTask, updateTask, fetchTask, changeSearch, changePriority } from '../redux';
 import { fileteredTaskSelector, loadSelector, prioritySelector, searchSelector, taskSelector } from '../selectors/selectors';
+import Select from './atoms/Select';
+import Input from './atoms/Input';
+import Button from './atoms/Button';
 
 const List = (props) => {
 	const tasks = props.tasks
@@ -17,7 +20,7 @@ const List = (props) => {
 	},[])
 
 
-	// console.log(props.priority)
+	console.log(tasks)
 	function handleDelete(index)
 	{
 		props.removeTask(index)
@@ -43,26 +46,25 @@ const List = (props) => {
 		newTask.deadline=event.target.value;
 		props.updateTask(index,newTask)
 	}
-
+	const priorityOptions = ["urgent", "elective"]
+	const statusOptions = ["Pending", "Completed"]
 	const tableRows = props.filteredTask.map((element,index) => {
 		return (
 		<tr className="items" key={props.filteredTask[index].id}>
-			<td><Link to={`/detail/${props.filteredTask[index].id}`}>{element.title}</Link></td>
-			
 			<td>
-				<select defaultValue={element.priority} onChange={(event) => handlePriority(event, props.filteredTask[index].id)}>
-					<option>urgent</option>
-					<option>elective</option>
-				</select>	
-			</td>
-			<td><input type="datetime-local" defaultValue={element.deadline || ""} onChange={(event)=>handleDeadline(event, props.filteredTask[index].id)} /></td>
+				<Link to={`/detail/${props.filteredTask[index].id}`}>{element.title}</Link></td>
 			<td>
-				<select defaultValue={element.status==1?"Completed":"Pending"} onChange={(event) => handleStatus(event, props.filteredTask[index].id)}>
-					<option>Completed</option>
-					<option>Pending</option>
-				</select>
+				<Select defaultValue={element.priority} options={priorityOptions} onChange={handlePriority} parameters={props.filteredTask[index].id}/>
 			</td>
-			<td className='delete-button'><button onClick={()=>handleDelete(tasks[index].id)}>X</button></td>
+			<td>
+				<Input type="datetime-local" value={element.deadline || ""} onChange={handleDeadline} parameters={props.filteredTask[index].id}></Input>
+			</td>
+			<td>
+				<Select defaultValue={element.status==1?"Completed":"Pending"} options={statusOptions} onChange={handleStatus} parameters={props.filteredTask[index].id}/>
+			</td>
+			<td className='delete-button'>
+				<Button onClick={handleDelete} parameters={tasks[index].id} value={"X"}></Button>
+			</td>
 		</tr>
 		);      
 	});
@@ -106,7 +108,6 @@ const List = (props) => {
 	return (
 		<>
 			<div className="container">
-				
 				<br/>
 				<input id='search-box' type='text' value={props.search} placeholder='Search Task' onChange={(e)=>handleSearch(e)}></input>
 				<select id='priority-box' defaultValue="none" onChange={(event)=>props.changePriority(event.target.value)}>
