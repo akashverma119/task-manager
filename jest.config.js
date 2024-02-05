@@ -1,11 +1,9 @@
 module.exports = {
-  rootDir: './',
+  rootDir: "./",
   collectCoverage: true,
-  collectCoverageFrom: ['src/**/*.{js,jsx}'],
-  coverageDirectory: 'coverage',
-  testEnvironment: 'jsdom',
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-  "transformIgnorePatterns": [
-    "node_modules"
-  ]
+  collectCoverageFrom: ["src/**/*.{js,jsx}"],
+  coverageDirectory: "coverage",
+  testEnvironment: "jsdom",
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+  transformIgnorePatterns: ["node_modules"],
 };

@@ -1,70 +1,77 @@
-import { ADD_TASK, REMOVE_TASK, UPDATE_TASK, FETCH_TASK, RECEIVE_TASK_FAILURE, RECEIVE_TASK_SUCCESS, ADD_TASK_FAILURE, ADD_TASK_SUCCESS, UPDATE_TASK_SUCCESS, UPDATE_TASK_FAILURE, REMOVE_TASK_FAILURE, REMOVE_TASK_SUCCESS, CHANGE_SEARCH, CHANGE_PRIORITY } from "./taskTypes";
+import {
+  ADD_TASK,
+  REMOVE_TASK,
+  UPDATE_TASK,
+  FETCH_TASK,
+  RECEIVE_TASK_FAILURE,
+  RECEIVE_TASK_SUCCESS,
+  ADD_TASK_FAILURE,
+  ADD_TASK_SUCCESS,
+  UPDATE_TASK_SUCCESS,
+  UPDATE_TASK_FAILURE,
+  REMOVE_TASK_FAILURE,
+  REMOVE_TASK_SUCCESS,
+  CHANGE_SEARCH,
+  CHANGE_PRIORITY,
+} from "./taskTypes";
 
-export const addTask = (task) =>
-{
-  return{
+export const addTask = (task) => {
+  return {
     type: ADD_TASK,
-    payload :{
-      task
-    }
-  }
+    payload: {
+      task,
+    },
+  };
 };
 
-export const addTaskSuccess = () =>
-{
+export const addTaskSuccess = () => {
   return {
-    type: ADD_TASK_SUCCESS
-  }
-}
+    type: ADD_TASK_SUCCESS,
+  };
+};
 
-export const addTaskFailure = (err) =>
-{
+export const addTaskFailure = (err) => {
   return {
     type: ADD_TASK_FAILURE,
-    payload :{
-      err
-    }
-  }
-}
+    payload: {
+      err,
+    },
+  };
+};
 
-export const removeTask = (id) =>
-{
+export const removeTask = (id) => {
   return {
     type: REMOVE_TASK,
-    payload :
-    {
-      id
-    }
-  }
-};
-
-export const updateTask = (id,task) =>
-{
-  return{
-    type: UPDATE_TASK, 
-    payload : {
+    payload: {
       id,
-      task
-    }
-  } 
+    },
+  };
 };
 
-export const updateTaskSuccess = () =>
-{
+export const updateTask = (id, task) => {
   return {
-    type: UPDATE_TASK_SUCCESS
-  }
-}
+    type: UPDATE_TASK,
+    payload: {
+      id,
+      task,
+    },
+  };
+};
 
-export const updateTaskFailure = (err) =>
-{
+export const updateTaskSuccess = () => {
+  return {
+    type: UPDATE_TASK_SUCCESS,
+  };
+};
+
+export const updateTaskFailure = (err) => {
   return {
     type: UPDATE_TASK_FAILURE,
-    payload :{
-      err
-    }
-  }
-}
+    payload: {
+      err,
+    },
+  };
+};
 
 export const fetchTask = () => ({
   type: FETCH_TASK,
@@ -72,16 +79,16 @@ export const fetchTask = () => ({
 
 export const receiveTaskSuccess = (data) => ({
   type: RECEIVE_TASK_SUCCESS,
-  payload :{
-    data
-  }
+  payload: {
+    data,
+  },
 });
 
 export const receiveTaskFailure = (err) => ({
   type: RECEIVE_TASK_FAILURE,
-  payload :{
-    err
-  }
+  payload: {
+    err,
+  },
 });
 
 export const removeTaskSuccess = () => ({
@@ -90,25 +97,21 @@ export const removeTaskSuccess = () => ({
 
 export const removeTaskFailure = (err) => ({
   type: REMOVE_TASK_FAILURE,
-  payload :{
-    err
-  }
+  payload: {
+    err,
+  },
 });
 
 export const changeSearch = (data) => ({
-    type: CHANGE_SEARCH,
-    payload:{
-      data
-    }
-  }
-);
+  type: CHANGE_SEARCH,
+  payload: {
+    data,
+  },
+});
 
 export const changePriority = (data) => ({
-    type :CHANGE_PRIORITY,
-    payload:{
-      data
-    }
-  }
-);
-
-
+  type: CHANGE_PRIORITY,
+  payload: {
+    data,
+  },
+});
