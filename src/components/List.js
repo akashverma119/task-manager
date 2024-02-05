@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import './List.css';
 import { connect } from 'react-redux';
@@ -14,16 +14,15 @@ const List = (props) => {
 		props.changeSearch(event.target.value)
 	}
 
-
 	useEffect(()=>{
 		props.fetchTask();
 	},[])
 
-
 	console.log(tasks)
 	function handleDelete(index)
 	{
-		props.removeTask(index)
+		props.removeTask(index);
+		props.fetchTask();
 	}
 
 	const handlePriority = (event, index) =>
