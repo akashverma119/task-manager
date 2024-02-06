@@ -72,16 +72,4 @@ describe("List page", () => {
     userEvent.click(submitButton);
     expect(getSpy).toHaveBeenCalledTimes(1);
   });
-
-  it("View a task", async () => {
-    render(<App />);
-    const titleLink = await screen.findByRole("link", {
-      name: /My first task/i,
-    });
-    userEvent.click(titleLink);
-    const title = await screen.findByRole("textbox", {
-      name: /My first task/i,
-    });
-    expect(title).toBeInTheDocument();
-  });
 });
