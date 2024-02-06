@@ -29,7 +29,6 @@ const List = (props) => {
   useEffect(() => {
     props.fetchTask();
   }, []);
-
   console.log(tasks);
   function handleDelete(index) {
     props.removeTask(index);
