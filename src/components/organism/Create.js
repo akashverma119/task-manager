@@ -68,7 +68,7 @@ const Create = (props) => {
             onChange={handleDeadline}
           />
         </label>
-        <Input type="submit"></Input>
+        <Input type="submit" value="Create"></Input>
       </form>
     );
   };

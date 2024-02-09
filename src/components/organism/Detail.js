@@ -6,15 +6,18 @@ import { updateTask } from "../../redux";
 import { taskSelector } from "../../selectors/selectors";
 import Input from "../atoms/Input";
 import Select from "../atoms/Select";
-import Button from "../atoms/Button";
-const Detail = (props) => {
+
+const Detail = ({ stateTasks, updateTask }) => {
   const index = useParams()?.id;
-  const tasks = props.tasks;
+  const tasks = stateTasks;
   const [task, setTask] = useState(tasks.find((obj) => obj.id == index));
+  // console.log(task);
   const navigate = useNavigate();
   const handleEdit = (event) => {
     event.preventDefault();
-    props.updateTask(index, task);
+    // console.log("index*******", index);
+    // console.log("task*******", task);
+    updateTask(index, task);
     navigate("../");
   };
   const handleTitle = (event) => {
@@ -26,10 +29,10 @@ const Detail = (props) => {
   const handleDeadline = (event) => {
     setTask({ ...task, deadline: event.target.value });
   };
-  const handlePriority = (event) => {
+  const handlePriority = (event, parameters = null) => {
     setTask({ ...task, priority: event.target.value });
   };
-  const handleStatus = (event) => {
+  const handleStatus = (event, parameters = null) => {
     setTask({ ...task, status: event.target.value === "Completed" ? 1 : 0 });
   };
   const priorityOptions = ["urgent", "elective"];
@@ -37,7 +40,7 @@ const Detail = (props) => {
 
   const formRender = () => {
     return (
-      <form>
+      <form onSubmit={(e) => handleEdit(e)}>
         <label>
           Status:
           <Select
@@ -78,7 +81,7 @@ const Detail = (props) => {
             onChange={handleDeadline}
           ></Input>
         </label>
-        <Button onClick={(e) => handleEdit(e)} value={"EDIT"}></Button>
+        <Input type="submit" value="EDIT" />
       </form>
     );
   };
@@ -92,7 +95,7 @@ const Detail = (props) => {
 
 const mapStateToProp = (state) => {
   return {
-    tasks: taskSelector(state),
+    stateTasks: taskSelector(state),
   };
 };
 
